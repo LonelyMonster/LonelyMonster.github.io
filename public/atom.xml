@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Tangyu&#39;s Site</title>
+  <subtitle>这个人很懒，什么也没有留下。</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://tangyu.github.io/"/>
+  <updated>2017-08-09T02:55:15.941Z</updated>
+  <id>http://tangyu.github.io/</id>
+  
+  <author>
+    <name>Tang Yu</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>你好世界</title>
+    <link href="http://tangyu.github.io/2017/08/09/helloworld/"/>
+    <id>http://tangyu.github.io/2017/08/09/helloworld/</id>
+    <published>2017-08-09T02:54:56.997Z</published>
+    <updated>2017-08-09T02:55:15.941Z</updated>
+    
+    <content type="html"><![CDATA[<p>这个人很懒，什么也没有留下。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这个人很懒，什么也没有留下。&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>DDD（领域驱动设计）</title>
+    <link href="http://tangyu.github.io/2017/08/09/DDD/"/>
+    <id>http://tangyu.github.io/2017/08/09/DDD/</id>
+    <published>2017-08-09T02:51:43.863Z</published>
+    <updated>2017-08-09T02:56:08.599Z</updated>
+    
+    <content type="html"><![CDATA[<p>分层架构<br>最初层次只分为三层：表现层、业务层和持久层；DDD告诉我们如何实现业务层。</p>
+<p>业务层将细分为两个层次：应用层和领域层。它们的定义是：<br>应用层：定义软件可以完成的工作，并且指挥具有丰富含义的领域对象来解决问题，保持精练；不包括业务规则或知识，无业务情况的状态；<br>领域层：负责表示业务概念、业务状态的信息和业务规则，是业务软件核心。</p>
+<p>领域层模型种类<br>传统模型分为两种：实体（Entity）和值对象（Value Object），现在服务（Service）成为第三种模型元素。<br>实体（Entity）定义：通过一系列连续性（continuity）和标识（identity　ID）来定义；个人认为它和分析领域的四色原型中的PPT原型非常类似，可以看成是PPT原型延续。<br>值对象（Value Object）：如果一个对象代表了领域的某种描述性特征，且没有概念性的标识。它是四色原型中Description原型延续。<br>Eric认为：服务Service是描述领域概念最自然的方式，是四色原型的MI原型的延续， 优秀服务3个特征：<br>　　1.与领域概念相关的操作行为、但不是实体和值对象中固有的部分。<br>　　2.接口根据领域模型中其他元素定义<br>    3.操作是无状态的。</p>
+<p>四色原型及聚合设计<br>PartPlaceThing：简称PPT，用淡绿色表示，常见的PPT有：部门、岗位、人员、地点、物品等。<br>Description：简称Des，用淡蓝色表示，主要用来对PPT进行描述，常见的Des有：部门类型、岗位层级、人员类型、地点区域、物品分类等。<br>Role：用淡黄色表示，主要表示PPT在某个场景下扮演的角色，常见的角色有：财务类部门、管理类岗位、请假者、销售点、产品等。<br>MomentInterval：简称MI，用淡红色表示，主要表示在一刻或一段时间内发生的一件事情，常见的MI有：部门移动、岗位移动、员工离职、产品销售等。<br>MomentInteval：简称MIDetail，用淡红色表示，主要表示MI的明细，常见的MIDetail有销售明细、入库明细、出库明细等。<br>四色原型可以用这句话进行描述：某个人（Party）的角色（PartyRole）在某个地点（Place）的角色（PlaceRole）用某个东西（Thing）的角色（ThingRole）做了某件事情（MomentInterval）。<br>第一步：识别模型<br>第二步：识别关联<br>第三步：划分聚合<br>•    MI和MIDetail是一个聚合，MI是聚合根。<br>•    PPT是一个聚合，PPT是一个聚合根。如果Des只“描述”PPT，那么这个Des会作为一个值对象隶属于属于PPT所在的聚合。<br>•    Des是一个聚合，Des是一个聚合根。前提你想“跟踪”Des关联的PPT。<br>•    Role不属于聚合，Role是一个带状态的领域服务，Role采用装饰器模式装饰PPT。<br>第四步：精简关联</p>
+<p>领域对象的生命周期Scope<br>在生命周期中维护对象的完整性。<br>避免模型由于管理生命周期的复杂性而陷入困境。<br>有三个模式来处理：<br>聚合（Aggregate）：定义清晰的所有权和边界使模型更加紧凑，避免出现盘根错节的对象关系网；<br>工厂（Factory）和组合（Respository）。<br>当一个对象生命周期之始，使用工厂和组合提供了访问和控制模型对象的方法，完善了MDD。 建立聚合的模型，并且把工厂和组合加入设计中来，可以使我们系统地对模型对象进行管理。 聚合圈出一个范围，在这个范围中，对象无论在哪个生命周期，保持不变性。<br>但是，Eric明确告诉我们，领域模型的工厂属于应用层，也就是还是应该处于业务层的，这样好处很多，业务层设计根本无需从Hibernate等持久层框架获得，而是从自己的工厂获得。组合（Respository）又被翻译成仓储，主要用来返回一批对象，查询组合常用来返回批量查询结果。（贫血模型）</p>
+<p>失血模型：模型仅仅包含数据的定义和getter/setter方法，业务逻辑和应用逻辑都放到服务层中。这种类在Java中叫POJO，在.NET中叫POCO。（不推荐）<br>贫血模型：贫血模型中包含了一些业务逻辑，但不包含依赖持久层的业务逻辑。这部分依赖于持久层的业务逻辑将会放到服务层中。可以看出，贫血模型中的领域对象是不依赖于持久层的。<br>充血模型：充血模型中包含了所有的业务逻辑，包括依赖于持久层的业务逻辑。所以，使用充血模型的领域层是依赖于持久层，简单表示就是 UI层-&gt;服务层-&gt;领域层&lt;-&gt;持久层。<br>胀血模型：胀血模型就是把和业务逻辑不想关的其他应用逻辑（如授权、事务等）都放到领域模型中。我感觉胀血模型反而是另外一种的失血模型，因为服务层消失了，领域层干了服务层的事，到头来还是什么都没变。（不推荐）</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;分层架构&lt;br&gt;最初层次只分为三层：表现层、业务层和持久层；DDD告诉我们如何实现业务层。&lt;/p&gt;
+&lt;p&gt;业务层将细分为两个层次：应用层和领域层。它们的定义是：&lt;br&gt;应用层：定义软件可以完成的工作，并且指挥具有丰富含义的领域对象来解决问题，保持精练；不包括业务规则或知识，
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
